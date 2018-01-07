@@ -11,7 +11,7 @@ exports.upload = function(request, response) {
             "Content-Type": "text/html"
         });
         fileName = fields.title;
-        if (fileName == null || fileName.length == 0) {
+        if (fileName.length == 0) {
             fileName = files.upload.name;
         }
         response.write("received image: " + fileName + "<br/>");
@@ -27,6 +27,7 @@ exports.welcome = function(request, response) {
         response.writeHead(200, {
             "Content-Type": "text/html; charset=utf-8"
         });
+        if(err) throw err;
         response.write(html);
         response.end();
     });
@@ -39,10 +40,11 @@ exports.error = function(request, response) {
 }
 
 exports.show = function(request, response) {
-    fs.readFile(fileName, "binary", function(error, file) {
+    fs.readFile(fileName, "binary", function(err, file) {
         response.writeHead(200, {
             "Content-Type": "image/jpg"
         });
+        if(err) throw err;
         response.write(file, "binary");
         response.end();
     });
