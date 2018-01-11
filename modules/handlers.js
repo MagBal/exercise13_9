@@ -11,13 +11,10 @@ exports.upload = function(request, response) {
         response.writeHead(200, {
             "Content-Type": "text/html"
         });
-        if (fields.title.length != 0)
-        {
+        if (fields.title) {
             fileName = fields.title;
             fs.renameSync(files.upload.path, fileName);
-        }
-        else
-        {
+        } else {
             fileName = files.upload.path;
         }
         response.write("received image: " + fileName + "<br/>");
